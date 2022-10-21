@@ -41,7 +41,9 @@
 		// 1. 게시글 작성자의 모든 댓글 찾기.
 		_.go(
 			_.filter(posts, post => post.user_id == 101),
-		    	posts => _.filter(comments, comment => _.find(posts, post => post.id == comment.post_id)),
+		    	// posts => _.filter(comments, comment => _.find(posts, post => post.id == comment.post_id)),
+            		posts => _.map(posts, post => post.id),
+            		post_ids => _.filter(comments, comment => _.contains(post_ids, comment.post_id)),
 			console.log
 		)
 		
