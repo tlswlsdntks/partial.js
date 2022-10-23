@@ -50,11 +50,17 @@
 		)
 		
 		// 2. 특정 게시글에 댓글을 적은 사람의 이름 찾기.
-		_.go(
-			_.where(posts, {user_id: 101}), // users
+		var _posts_by = obj => _.where(posts, obj);
+		var _comments_by_posts = _.pipe(
 			_.pluck('id'),
 			post_ids => _.filter(comments, comment => _.contains(post_ids, comment.post_id)),
 			_.map(comments => _.find(users, user => user.id == comments.user_id).name),
+			)
+		_.go(
+			// _.where(posts, {user_id: 101}),
+			_posts_by({user_id: 101}),
+			_comments_by_posts,
+			_.uniq,
 			console.log
 		)
 		
