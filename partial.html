@@ -38,12 +38,14 @@
 			{ id: 310, body: '댓글10', user_id: 105, post_id: 201 }
 	   	]
 
-		// 1. 게시글 작성자의 모든 댓글 찾기.
+		// 1. 특정 게시글의 작성자가 적은 모든 댓글 찾기.
 		_.go(
-			_.filter(posts, post => post.user_id == 101),
+			// _.filter(posts, post => post.user_id == 101),
+			_.where(posts, {user_id: 101}),
 		    	// posts => _.filter(comments, comment => _.find(posts, post => post.id == comment.post_id)),
-            		posts => _.map(posts, post => post.id),
-            		post_ids => _.filter(comments, comment => _.contains(post_ids, comment.post_id)),
+		    	// posts => _.map(posts, post => post.id),
+			.pluck('id'),
+		    	post_ids => _.filter(comments, comment => _.contains(post_ids, comment.post_id)),
 			console.log
 		)
 		
