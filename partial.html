@@ -44,7 +44,7 @@
 			_.where(posts, {user_id: 101}),
 		    	// posts => _.filter(comments, comment => _.find(posts, post => post.id == comment.post_id)),
 		    	// posts => _.map(posts, post => post.id),
-			.pluck('id'),
+			_.pluck('id'),
 		    	post_ids => _.filter(comments, comment => _.contains(post_ids, comment.post_id)),
 			console.log
 		)
