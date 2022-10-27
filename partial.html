@@ -47,7 +47,7 @@
 		_.go(
 			_.where(posts, { user_id: 101 }),
 			posts => _.filter(comments, comment => _.find(posts, post => post.id == comment.post_id)),
-			// console.log
+			console.log
 		)
 
 		// 2. 특정 게시글에 등록된 모든 댓글의 사람이름 찾기.
@@ -64,14 +64,14 @@
 		_.go(
 			p1({ user_id: 101 }),
 			_.uniq,
-			// console.log
+			console.log
 		)
 
 		// 3. 특정 게시글에 댓글을 적은 사람의 인원수 찾기.
 		_.go(
 			p1({ user_id: 101 }),
 			_.count_by,
-			// console.log
+			console.log
 		)
 
 		// 4. 특정인의 댓글이 적힌 게시글 찾기.
@@ -79,12 +79,12 @@
 			_.where(comments, { user_id: 105 }),
 			_.pluck('post_id'),
 			post_ids => _.filter(posts, post => _.contains(post_ids, post.id)),
-			// console.log
+			console.log
 		)
 
 		// 5. _.index_by 와 _.group_by 로 효율 높이기
 		var users2 = _.index_by(users, 'id');
-		// console.log(users2);
+		console.log(users2);
 		
         // var comments2 = _.map(comments, comment => _.extend(comment, find_user_by_id(comment.user_id)));
 		var comments2 = _.go(
