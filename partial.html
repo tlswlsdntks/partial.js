@@ -84,7 +84,7 @@
 
 		// 5. _.index_by 와 _.group_by 로 효율 높이기 (users2, comments2, posts2, users3)
 		var users2 = _.index_by(users, 'id');
-		// console.log(users2);
+		console.log(users2);
 
 		var comments2 = _.go(
 			comments,
@@ -95,7 +95,7 @@
 			)),
 			_.group_by('post_id')
 		)
-		// console.log(comments2);
+		console.log(comments2);
 
 		var posts2 = _.go(
 			posts,
