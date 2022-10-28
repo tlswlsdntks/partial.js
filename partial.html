@@ -83,45 +83,45 @@
 		)
 
 		// 5. _.index_by 와 _.group_by 로 효율 높이기
-		var users2 = _.index_by(users, 'id');
-		console.log(users2);
 
-		// var comments2 = _.map(comments, comment => _.extend(comment, find_user_by_id(comment.user_id)));
-		var comments2 = _.go(
-			comments,
-			_.map(comment => _.extend(
-				comment,
-				{ user: users2[comment.user_id] }
-			)),
-			_.group_by('post_id')
-		)
-		console.log(comments2);
+        var users2 = _.index_by(users, 'id');
+        // console.log(users2);
 
-		// var find_user_by_id = user_id => _.find(users, user => user.id == user_id);
-		var find_user_by_id = user_id => users2[user_id];
+        var comments2 = _.go(
+            comments,
+            _.map(comment => _.extend(
+                // { users: _.find(users2, user => user.id == comment.user_id) },
+                { users: users2[comment.user_id] || [] },
+                comment
+            )),
+            _.group_by('post_id')
+        )
+        // console.log(comments2);
 
-		var posts2 = _.go(
-			posts,
-			_.map(post => _.extend(
-				post,
-				// find_user_by_id(post.user_id),
-				{
-					user: users2[post.user_id],
-					comments: comments2[post.id] || []
-				}
-			)),
-			_.group_by('user_id')
-		)
-		console.log(posts2);
+        var posts2 = _.go(
+            posts,
+            _.map(post => _.extend(
+                {
+                    // users: _.find(users2, user => post.user_id == user.id),
+                    users: users2[post.user_id],
+                    comments: comments2[post.id] || []
+                },
+                post
+            )),
+            _.group_by('user_id')
+        )
+        // console.log(posts2);
 
-		var users3 = _.go(
-			users2,
-			_.map(user => _.extend(
-				user,
-				{ posts: posts2[user.id] || {} }
-			))
-		)
-		console.log(users3);
+        var users3 = _.go(
+            users2,
+            _.map(user => _.extend(
+                {
+                    posts: posts2[user.id] || []
+                },
+                user
+            ))
+        )
+        // console.log(users3);
 
 	</script>
 
