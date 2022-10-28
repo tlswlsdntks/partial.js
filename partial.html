@@ -115,13 +115,11 @@
 		var users3 = _.go(
 			users2,
 			_.map(user => _.extend(
-				{
-					posts: posts2[user.id] || []
-				},
+				{ posts: posts2[user.id] || [] },
 				user
 			))
 		)
-        console.log(users3);
+        	console.log(users3);
 
 	</script>
 
