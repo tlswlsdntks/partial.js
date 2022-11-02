@@ -162,9 +162,67 @@
 
 		// 5.4. 특정인의 댓글이 등록된 게시글 찾기.
 		console.log(_.filter(posts3, post => _.find(post.comments, comment => comment.user_id == '105')));
-		
+
 		// 장바구니
-		// 202201101_읍천리
+		var products = [
+			{
+				is_selected: true, // <-- 장바구니에서 체크박스 선택
+				name: "반팔티",
+				price: 10000, // <-- 기본가격
+				sizes: [ // <-- 장바구니에 담은 동일 상품의 사이즈 별 수량과 가격
+					{ name: "L", quantity: 1, price: 0 },
+					{ name: "XL", quantity: 1, price: 0 },
+					{ name: "2XL", quantity: 1, price: 2000 }, // <-- 옵션의 추가 가격
+				]
+			},
+			{
+				is_selected: true,
+				name: "후드티",
+				price: 21000,
+				sizes: [
+					{ name: "L", quantity: 1, price: -1000 },
+					{ name: "2XL", quantity: 1, price: 2000 },
+				]
+			},
+			{
+				is_selected: false,
+				name: "맨투맨",
+				price: 16000,
+				sizes: [
+					{ name: "L", quantity: 5, price: 0 },
+				]
+			},
+		]
+
+		// 1. 모든 수량
+		_.go(
+			products,
+			_.reduce((tq, product) => _.reduce(product.sizes, (tq, size) => tq + size.quantity, tq), 0),
+			console.log
+		)
+
+		// 2. 선택된 총수량
+		var total_quantity = _.reduce((tq, product) => _.reduce(product.sizes, (tq, size) => tq + size.quantity, tq), 0);
+		_.go(
+			_.where(products, { is_selected: true }),
+			total_quantity,
+			console.log
+		)
+
+		// 3. 모든 가격
+		_.go(
+			products,
+			_.reduce((tp, product) => _.reduce(product.sizes, (tp, size) => tp + (product.price + size.price) * size.quantity, tp), 0),
+			console.log
+		)
+
+		// 4. 선택된 총 가격
+		var total_price = _.reduce((tp, product) => _.reduce(product.sizes, (tp, size) => tp + (product.price + size.price) * size.quantity, tp), 0);
+		_.go(
+			_.where(products, { is_selected: true }),
+			total_price,
+			console.log
+		)
 
 	</script>
 
