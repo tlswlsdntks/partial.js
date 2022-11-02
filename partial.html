@@ -166,14 +166,18 @@
 		// 장바구니
 		var products = [
 			{
-				is_selected: true, // <-- 장바구니에서 체크박스 선택
-				name: "반팔티",
-				price: 10000, // <-- 기본가격
-				sizes: [ // <-- 장바구니에 담은 동일 상품의 사이즈 별 수량과 가격
-					{ name: "L", quantity: 1, price: 0 },
-					{ name: "XL", quantity: 1, price: 0 },
-					{ name: "2XL", quantity: 1, price: 2000 }, // <-- 옵션의 추가 가격
-				]
+				// 체크여부
+                is_selected: true,
+                // 상품명
+                name: "반팔티",
+                // 기본가
+                price: 10000, 
+                // 장바구니에 담은 동일 상품의 사이즈 별 수량, 추가가격
+                sizes: [
+                    { name: "L", quantity: 1, price: 0 },
+                    { name: "XL", quantity: 1, price: 0 },
+                    { name: "2XL", quantity: 1, price: 2000 },
+                ]
 			},
 			{
 				is_selected: true,
